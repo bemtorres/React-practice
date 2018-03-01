@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 
+import FileUpload from './FileUpload';
 import './App.css';
 
 class App extends Component {
@@ -28,17 +29,18 @@ class App extends Component {
   }
   handleLogout(){
     firebase.auth().signOut()
-    .then(result => console.log(`${result.user.email} ha salido`))
-    .catch(error => console.log(`Error ${error.code}: ${error.message}`));
+   .then(result => console.log(`${result.user.email} ha cerrado sesión`))
+   .catch(error => console.log(`Error ${error.code}: ${error.message}`));
   }
   renderLoginButton(){
     //si el usuario esta logeado
     if (this.state.user) {
       return(
         <div>
-          <img width="100" src={this.state.user.photoURL} alt={this.state.user.displayName} />
-          <p>Hola {this.state.user.displayName}!</p>
+          <img width="100" src={ this.state.user.photoURL } alt={ this.state.user.displayName } />
+          <p>Hola { this.state.user.displayName }!</p>
           <button onClick={this.handleLogout}>Salir</button>
+          <FileUpload />
         </div>
       );
     }else {
@@ -54,7 +56,7 @@ class App extends Component {
         <header className="App-header">
           <h2>Primera APP</h2>
         </header>
-        <div className="App-intro">
+        <div>
           { this.renderLoginButton() }
         </div>
       </div>
